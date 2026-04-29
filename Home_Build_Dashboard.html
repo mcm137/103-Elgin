@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>103 Elgin Ave — Home Build Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #f5f5f5; color: #1a1a2e; padding: 20px; }
+  h1 { text-align: center; color: #0D1B2A; font-size: 24px; margin-bottom: 4px; }
+  .subtitle { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 24px; }
+  .kpi { background: #fff; border-radius: 8px; padding: 12px 8px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .kpi .label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .value { font-size: 18px; font-weight: bold; margin-top: 4px; }
+  .kpi .value.green { color: #2e7d32; }
+  .kpi .value.red { color: #c00000; }
+  .kpi .value.blue { color: #1565c0; }
+  .kpi .value.gold { color: #bf8f00; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .card h3 { font-size: 14px; color: #1F3864; margin-bottom: 12px; border-bottom: 2px solid #BF8F00; padding-bottom: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #1F3864; color: #fff; padding: 8px 6px; text-align: left; font-size: 11px; }
+  td { padding: 6px; border-bottom: 1px solid #e0e0e0; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .progress-bar { background: #e0e0e0; border-radius: 4px; height: 16px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; }
+  .nb { color: #c00; font-weight: bold; font-size: 10px; }
+  .est { background: #fff8e1 !important; }
+  .note { font-size: 10px; color: #888; margin-top: 10px; line-height: 1.5; }
+  @media (max-width: 768px) {
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<h1>103 Elgin Ave — Home Build Dashboard</h1>
+<p class="subtitle">MLNJ Dev1 LLC | Updated April 29, 2026</p>
+<div class="kpi-grid">
+  <div class="kpi"><div class="label">Acquisition Cost</div><div class="value blue">$395,615.02</div></div>
+  <div class="kpi"><div class="label">Construction Budget</div><div class="value blue">$282,482.00</div></div>
+  <div class="kpi"><div class="label">Draws Funded</div><div class="value gold">$49,500.00</div></div>
+  <div class="kpi"><div class="label">Spent to Date</div><div class="value red">$164,799.12</div></div>
+  <div class="kpi"><div class="label">Loan (UPB)</div><div class="value red">$358,751.00</div></div>
+  <div class="kpi"><div class="label">MCM Cash Invested</div><div class="value gold">$133,889.39</div></div>
+</div>
+<div class="card" style="margin-bottom: 24px;">
+    <h3>Sale Proceeds Waterfall</h3>
+    <table>
+      <tr class="est"><td><b>Expected Sale Price (est.)</b></td><td style="text-align:right;font-weight:bold">$900,000.00</td></tr>
+      <tr class="est"><td>&nbsp;&nbsp;&nbsp;Less: Loan Payoff (est. full draw)</td><td style="text-align:right">($591,733.00)</td></tr>
+      <tr class="est"><td>&nbsp;&nbsp;&nbsp;Less: Closing Costs (est.)</td><td style="text-align:right">($65,925.00)</td></tr>
+      <tr class="est" style="font-weight:bold;background:#fff3c4"><td>Net Proceeds</td><td style="text-align:right">$242,342.00</td></tr>
+      <tr><td colspan="2" style="height:8px;border-bottom:none"></td></tr>
+      <tr class="est"><td>&nbsp;&nbsp;&nbsp;Less: MCM Cash Reimbursement</td><td style="text-align:right">($133,889.39)</td></tr>
+      <tr class="est" style="font-weight:bold;background:#fff3c4"><td>Distributable Profit</td><td style="text-align:right">$108,452.61</td></tr>
+      <tr><td colspan="2" style="height:8px;border-bottom:none"></td></tr>
+      <tr class="est"><td>MCM Share (50% of profit)</td><td style="text-align:right">$54,226.31</td></tr>
+      <tr class="est"><td>MRL Share (50% of profit)</td><td style="text-align:right">$54,226.31</td></tr>
+      <tr><td colspan="2" style="height:8px;border-bottom:none"></td></tr>
+      <tr class="est" style="font-weight:bold;font-size:13px;background:#fff3c4"><td>MCM Total Payout</td><td style="text-align:right">$188,115.70</td></tr>
+    </table>
+    <div class="note">
+      Yellow rows are estimates assuming full budget spend at $900k sale price.<br>
+      Closing est.: 6% realtor ($54,000) + NJ transfer tax ($8,925) + attorney/misc ($3,000)<br>
+      BD Capital interest funded from draws (in loan payoff). LOC interest is MCM cash (in reimbursement).
+    </div>
+</div>
+<div class="grid2">
+  <div class="card">
+    <h3>Budget Tracker</h3>
+    <table>
+      <tr><th>#</th><th>Category</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>Progress</th></tr>
+      <tr>
+        <td>1</td><td>Design & Engineering</td><td>$5,000.00</td><td>$5,675.00</td><td>($675.00)</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#c00"></div></div> 100%</td>
+      </tr>
+      <tr>
+        <td>2</td><td>Demo</td><td>$14,500.00</td><td>$12,561.81</td><td>$1,938.19</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:87%;background:#f57c00"></div></div> 87%</td>
+      </tr>
+      <tr>
+        <td>3</td><td>Framing</td><td>$60,000.00</td><td>$41,305.45</td><td>$18,694.55</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:69%;background:#2e7d32"></div></div> 69%</td>
+      </tr>
+      <tr>
+        <td>4</td><td>Exterior Envelope</td><td>$38,000.00</td><td>$34,913.01</td><td>$3,086.99</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:92%;background:#f57c00"></div></div> 92%</td>
+      </tr>
+      <tr>
+        <td>5</td><td>Plumbing</td><td>$18,500.00</td><td>$9,250.00</td><td>$9,250.00</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:50%;background:#2e7d32"></div></div> 50%</td>
+      </tr>
+      <tr>
+        <td>6</td><td>HVAC</td><td>$25,030.00</td><td>$28,116.00</td><td>($3,086.00)</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#c00"></div></div> 100%</td>
+      </tr>
+      <tr>
+        <td>7</td><td>Electrical</td><td>$22,300.00</td><td>$9,600.00</td><td>$12,700.00</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:43%;background:#2e7d32"></div></div> 43%</td>
+      </tr>
+      <tr>
+        <td>8</td><td>Interior Finish</td><td>$63,884.00</td><td>$9,620.00</td><td>$54,264.00</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:15%;background:#2e7d32"></div></div> 15%</td>
+      </tr>
+      <tr>
+        <td>9</td><td>Fixtures & Finishes</td><td>$26,230.00</td><td>$0.00</td><td>$26,230.00</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:0%;background:#2e7d32"></div></div> 0%</td>
+      </tr>
+      <tr>
+        <td>10</td><td>Landscaping</td><td>$3,500.00</td><td>$0.00</td><td>$3,500.00</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:0%;background:#2e7d32"></div></div> 0%</td>
+      </tr>
+      <tr>
+        <td>11</td><td>Permits & Fees</td><td>$0.00</td><td>$6,316.00</td><td>($6,316.00)</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#c00"></div></div> <span class="nb">N/B</span></td>
+      </tr>
+      <tr>
+        <td>12</td><td>Construction Management</td><td>$0.00</td><td>$6,156.42</td><td>($6,156.42)</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#c00"></div></div> <span class="nb">N/B</span></td>
+      </tr>
+      <tr>
+        <td>13</td><td>Contingency</td><td>$5,538.00</td><td>$1,285.43</td><td>$4,252.57</td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:23%;background:#2e7d32"></div></div> 23%</td>
+      </tr>
+      <tr style="font-weight:bold;background:#f0f0f0;"><td></td><td>Totals</td><td>$282,482.00</td><td>$164,799.12</td><td>$117,682.88</td><td></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Recent Expenses</h3>
+    <table>
+      <tr><th>Date</th><th>Vendor</th><th>Category</th><th>Amount</th></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Framing</td><td>$15,500.00</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Exterior Envelope</td><td>$26,131.63</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Exterior Envelope</td><td>$4,272.65</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Demo</td><td>$143.94</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Exterior Envelope</td><td>$470.00</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Exterior Envelope</td><td>$1,638.73</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Exterior Envelope</td><td>$2,400.00</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Construction Management</td><td>$4,200.00</td></tr>
+      <tr><td>04/24/2026</td><td>Cozy Homes Insulation</td><td>Interior Finish</td><td>$9,620.00</td></tr>
+      <tr><td>04/20/2026</td><td>Ambient Comfort</td><td>HVAC</td><td>$28,116.00</td></tr>
+      <tr><td>04/10/2026</td><td>DeRita Electric, LLC</td><td>Electrical</td><td>$9,600.00</td></tr>
+      <tr><td>04/03/2026</td><td>Green Guys Recycling Solutions LLC</td><td>Demo</td><td>$783.10</td></tr>
+      <tr><td>04/03/2026</td><td>Mastercraft Exteriors</td><td>Framing</td><td>$15,500.00</td></tr>
+      <tr><td>03/31/2026</td><td>Snow Removal Vendor</td><td>Contingency</td><td>$300.00</td></tr>
+      <tr><td>03/27/2026</td><td>Lender (Line of Credit)</td><td>Construction Loan Interest</td><td>$862.79</td></tr>
+      <tr><td>03/26/2026</td><td>Mastercraft Exteriors</td><td>Demo</td><td>$4,644.00</td></tr>
+      <tr><td>03/26/2026</td><td>Mastercraft Exteriors</td><td>Demo</td><td>$1,269.00</td></tr>
+      <tr><td>03/26/2026</td><td>Mastercraft Exteriors</td><td>Construction Management</td><td>$1,400.00</td></tr>
+      <tr><td>03/26/2026</td><td>Mastercraft Exteriors</td><td>Demo</td><td>$165.88</td></tr>
+      <tr><td>03/26/2026</td><td>Mastercraft Exteriors</td><td>Permits &amp; Fees</td><td>$4,341.00</td></tr>
+      <tr><td>03/26/2026</td><td>Mastercraft Exteriors</td><td>Demo</td><td>$931.00</td></tr>
+      <tr><td>03/26/2026</td><td>PSEG</td><td>Contingency</td><td>$892.43</td></tr>
+      <tr><td>03/23/2026</td><td>D. Burgo Plumbing &amp; Heating Inc.</td><td>Plumbing</td><td>$9,250.00</td></tr>
+      <tr><td>03/16/2026</td><td>Haddon Township</td><td>Permits &amp; Fees</td><td>$1,875.00</td></tr>
+      <tr><td>03/16/2026</td><td>Haddon Township</td><td>Permits &amp; Fees</td><td>$50.00</td></tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>
