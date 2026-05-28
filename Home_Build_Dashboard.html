@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>103 Elgin Ave — Home Build Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #f5f5f5; color: #1a1a2e; padding: 20px; }
+  h1 { text-align: center; color: #0D1B2A; font-size: 24px; margin-bottom: 4px; }
+  .subtitle { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 24px; }
+  .kpi { background: #fff; border-radius: 8px; padding: 12px 8px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .kpi .label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .value { font-size: 18px; font-weight: bold; margin-top: 4px; }
+  .kpi .value.green { color: #2e7d32; }
+  .kpi .value.red { color: #c00000; }
+  .kpi .value.blue { color: #1565c0; }
+  .kpi .value.gold { color: #bf8f00; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .card h3 { font-size: 14px; color: #1F3864; margin-bottom: 12px; border-bottom: 2px solid #BF8F00; padding-bottom: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #1F3864; color: #fff; padding: 8px 6px; text-align: left; font-size: 11px; position: sticky; top: 0; z-index: 2; }
+  td { padding: 6px; border-bottom: 1px solid #e0e0e0; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  th.num { text-align: right; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  tr.parent td { background: #eef2f8; font-weight: bold; }
+  tr.group-end td { border-bottom: 2px solid #1F3864; }
+  .scroll-table { max-height: 70vh; overflow-y: auto; }
+  .payout-banner { background: linear-gradient(90deg,#bf8f00 0%, #d4a017 100%); color: #fff; padding: 14px 18px; border-radius: 8px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(191,143,0,0.3); }
+  .payout-banner .label { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+  .payout-banner .value { font-size: 22px; font-weight: bold; }
+  .progress-bar { background: #e0e0e0; border-radius: 4px; height: 16px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; }
+  .nb { color: #c00; font-weight: bold; font-size: 10px; }
+  .est { background: #fff8e1 !important; }
+  .note { font-size: 10px; color: #888; margin-top: 10px; line-height: 1.5; }
+  @media (max-width: 768px) {
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<h1>103 Elgin Ave — Home Build Dashboard</h1>
+<p class="subtitle">MLNJ Dev1 LLC | Updated May 28, 2026</p>
+<div class="kpi-grid">
+  <div class="kpi"><div class="label">Acquisition Cost</div><div class="value blue">$395,615.02</div></div>
+  <div class="kpi"><div class="label">Construction Budget</div><div class="value blue">$282,482.00</div></div>
+  <div class="kpi"><div class="label">Draws Funded</div><div class="value gold">$212,597.00</div></div>
+  <div class="kpi"><div class="label">Spent to Date</div><div class="value red">$240,291.40</div></div>
+  <div class="kpi"><div class="label">Loan (UPB)</div><div class="value red">$521,848.00</div></div>
+  <div class="kpi"><div class="label">MCM Cash Invested</div><div class="value gold">$133,796.39</div></div>
+</div>
+<div class="grid2">
+  <div class="card">
+    <h3>Loan Summary</h3>
+    <table>
+      <tr><th>Item</th><th style="text-align:right;">Value</th></tr>
+      <tr><td>Total Loan Commitment</td><td class="num">$591,733.00</td></tr>
+      <tr><td>Interest Rate (Annual)</td><td class="num">10.0%</td></tr>
+      <tr><td>Loan Start Date</td><td class="num">12/02/2025</td></tr>
+      <tr><td>Initial Disbursement (Land + Closing)</td><td class="num">$309,251.00</td></tr>
+      <tr><td>Construction Holdback</td><td class="num">$282,482.00</td></tr>
+      <tr style="font-weight:bold;color:#c00000;"><td>Total Drawn from Holdback</td><td class="num">$212,597.00</td></tr>
+      <tr style="font-weight:bold;color:#c00000;"><td>Remaining Holdback</td><td class="num">$69,885.00</td></tr>
+      <tr style="font-weight:bold;color:#c00000;"><td>Total Outstanding (UPB)</td><td class="num">$521,848.00</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Draw History</h3>
+    <table>
+      <tr><th style="text-align:center;">Draw #</th><th>Disburse Date</th><th style="text-align:right;">Approved ($)</th></tr>
+      <tr><td style="text-align:center;">1</td><td>04/01/2026</td><td class="num">$49,500.00</td></tr>
+      <tr><td style="text-align:center;">2</td><td>04/16/2026</td><td class="num">$104,361.00</td></tr>
+      <tr><td style="text-align:center;">3</td><td>05/13/2026</td><td class="num">$58,736.00</td></tr>
+      <tr style="font-weight:bold;background:#f0f0f0;"><td>Cumulative</td><td></td><td class="num" style="color:#c00000;">$212,597.00</td></tr>
+    </table>
+    <div class="note">Draws sit outside the budget rows, mirroring the workbook. Cumulative ties to Total Drawn from Holdback.</div>
+  </div>
+</div>
+<div class="card" style="margin-bottom: 24px;">
+    <h3>Sale Proceeds Waterfall</h3>
+    <table>
+      <tr class="est"><td><b>Expected Sale Price (est.)</b></td><td class="num" style="font-weight:bold">$900,000.00</td></tr>
+      <tr class="est"><td>&nbsp;&nbsp;&nbsp;Less: Loan Payoff (est. full draw)</td><td class="num">($591,733.00)</td></tr>
+      <tr class="est"><td>&nbsp;&nbsp;&nbsp;Less: Closing Costs (est.)</td><td class="num">($65,925.00)</td></tr>
+      <tr class="est" style="font-weight:bold;background:#fff3c4"><td>Net Proceeds</td><td class="num">$242,342.00</td></tr>
+      <tr><td colspan="2" style="height:8px;border-bottom:none"></td></tr>
+      <tr class="est"><td>&nbsp;&nbsp;&nbsp;Less: MCM Cash Reimbursement</td><td class="num">($133,796.39)</td></tr>
+      <tr class="est" style="font-weight:bold;background:#fff3c4"><td>Distributable Profit</td><td class="num">$108,545.61</td></tr>
+      <tr><td colspan="2" style="height:8px;border-bottom:none"></td></tr>
+      <tr class="est"><td>MCM Share (50% of profit)</td><td class="num">$54,272.81</td></tr>
+      <tr class="est"><td>MRL Share (50% of profit)</td><td class="num">$54,272.81</td></tr>
+    </table>
+    <div class="payout-banner">
+      <span class="label">MCM Total Payout</span>
+      <span class="value">$188,069.20</span>
+    </div>
+    <div class="note">
+      Yellow rows are estimates assuming full budget spend at $900k sale price.<br>
+      Closing est.: 6% realtor ($54,000) + NJ transfer tax ($8,925) + attorney/misc ($3,000)<br>
+      BD Capital interest funded from draws (in loan payoff). LOC interest is MCM cash (in reimbursement).
+    </div>
+</div>
+<div class="card" style="margin-bottom: 24px;">
+    <h3>Construction Budget &amp; Draws</h3>
+    <div style="display:flex;gap:12px;font-size:11px;color:#666;margin-bottom:10px;align-items:center;flex-wrap:wrap;">
+      <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:12px;height:10px;background:#2e7d32;display:inline-block;"></span>under 80%</span>
+      <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:12px;height:10px;background:#f57c00;display:inline-block;"></span>80–100%</span>
+      <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:12px;height:10px;background:#c00;display:inline-block;"></span>over 100%</span>
+      <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:1px;height:14px;background:#333;display:inline-block;"></span>100% line</span>
+      <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:12px;height:10px;background:repeating-linear-gradient(45deg,#c00 0 4px,#800 4px 8px);display:inline-block;"></span>N/B (no budget)</span>
+    </div>
+    <table>
+      <tr><th>#</th><th>Line Item</th><th class="num">Revised Scheduled Value</th><th class="num">Spent to Date</th><th class="num">Remaining</th><th class="num">% Spent</th><th class="num">Approved for Draws</th><th class="num">Balance to Finish</th><th style="width:240px;">Progress</th></tr>
+      <tr class="parent">
+        <td>1</td><td>Design & Engineering</td><td class="num">$5,000.00</td><td class="num">$5,675.00</td><td class="num" style="color:#c00;font-weight:bold;">($675.00)</td><td class="num"><span style="color:#c00000;font-weight:bold;">114%</span></td><td class="num">$5,000.00</td><td class="num">$0.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:124.8px;height:100%;background:#c00;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="color:#c00;font-weight:bold;font-size:11px;">114%</span></td>
+      </tr>
+      <tr class="parent">
+        <td>2</td><td>Demo</td><td class="num">$14,500.00</td><td class="num">$12,417.87</td><td class="num">$2,082.13</td><td class="num"><span style="color:#f57c00;font-weight:bold;">86%</span></td><td class="num">$14,500.00</td><td class="num">$0.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:94.2px;height:100%;background:#f57c00;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="font-size:11px;">86%</span></td>
+      </tr>
+      <tr class="parent">
+        <td>3</td><td>Framing</td><td class="num">$60,000.00</td><td class="num">$64,778.10</td><td class="num" style="color:#c00;font-weight:bold;">($4,778.10)</td><td class="num"><span style="color:#c00000;font-weight:bold;">108%</span></td><td class="num">$60,000.00</td><td class="num">$0.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:118.8px;height:100%;background:#c00;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="color:#c00;font-weight:bold;font-size:11px;">108%</span></td>
+      </tr>
+      <tr class="parent">
+        <td>4</td><td>Exterior Envelope</td><td class="num">$38,000.00</td><td class="num">$37,374.39</td><td class="num">$625.61</td><td class="num"><span style="color:#f57c00;font-weight:bold;">98%</span></td><td class="num">$38,000.00</td><td class="num">$0.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:108.2px;height:100%;background:#f57c00;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="font-size:11px;">98%</span></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">4a</td><td style="padding-left:24px;">↳ Roofing</td><td class="num">$10,250.00</td><td class="num">$6,060.36</td><td class="num">$4,189.64</td><td class="num">59%</td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">4b</td><td style="padding-left:24px;">↳ Siding</td><td class="num">$15,250.00</td><td class="num">$17,794.93</td><td class="num" style="color:#c00;font-weight:bold;">($2,544.93)</td><td class="num"><span style="color:#c00000;font-weight:bold;">117%</span></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">4c</td><td style="padding-left:24px;">↳ Windows</td><td class="num">$12,500.00</td><td class="num">$12,260.35</td><td class="num">$239.65</td><td class="num"><span style="color:#f57c00;font-weight:bold;">98%</span></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub group-end" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">4d</td><td style="padding-left:24px;">↳ Gutters</td><td class="num">$0.00</td><td class="num">$1,258.75</td><td class="num" style="color:#c00;font-weight:bold;">($1,258.75)</td><td class="num"><span style="color:#c00000;font-weight:bold;">N/B</span></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="parent">
+        <td>5</td><td>Plumbing</td><td class="num">$18,500.00</td><td class="num">$9,602.88</td><td class="num">$8,897.12</td><td class="num">52%</td><td class="num">$18,500.00</td><td class="num">$0.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:57.1px;height:100%;background:#2e7d32;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="font-size:11px;">52%</span></td>
+      </tr>
+      <tr class="parent">
+        <td>6</td><td>HVAC</td><td class="num">$25,030.00</td><td class="num">$28,116.00</td><td class="num" style="color:#c00;font-weight:bold;">($3,086.00)</td><td class="num"><span style="color:#c00000;font-weight:bold;">112%</span></td><td class="num">$22,527.00</td><td class="num">$2,503.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:123.6px;height:100%;background:#c00;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="color:#c00;font-weight:bold;font-size:11px;">112%</span></td>
+      </tr>
+      <tr class="parent">
+        <td>7</td><td>Electrical</td><td class="num">$22,300.00</td><td class="num">$9,959.08</td><td class="num">$12,340.92</td><td class="num">45%</td><td class="num">$15,590.00</td><td class="num">$6,710.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:49.1px;height:100%;background:#2e7d32;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="font-size:11px;">45%</span></td>
+      </tr>
+      <tr class="parent">
+        <td>8</td><td>Interior Finish</td><td class="num">$63,884.00</td><td class="num">$35,582.02</td><td class="num">$28,301.98</td><td class="num">56%</td><td class="num">$25,280.00</td><td class="num">$38,604.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:61.3px;height:100%;background:#2e7d32;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="font-size:11px;">56%</span></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">8a</td><td style="padding-left:24px;">↳ Insulation</td><td class="num">$8,900.00</td><td class="num">$9,620.00</td><td class="num" style="color:#c00;font-weight:bold;">($720.00)</td><td class="num"><span style="color:#c00000;font-weight:bold;">108%</span></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">8b</td><td style="padding-left:24px;">↳ Drywall</td><td class="num">$11,590.00</td><td class="num">$10,982.10</td><td class="num">$607.90</td><td class="num"><span style="color:#f57c00;font-weight:bold;">95%</span></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">8c</td><td style="padding-left:24px;">↳ Trim and Millwork</td><td class="num">$0.00</td><td class="num">$0.00</td><td class="num">$0.00</td><td class="num"></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">8d</td><td style="padding-left:24px;">↳ Interior Paint</td><td class="num">$14,800.00</td><td class="num">$0.00</td><td class="num">$14,800.00</td><td class="num">0%</td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">8e</td><td style="padding-left:24px;">↳ Interior Doors</td><td class="num">$9,150.00</td><td class="num">$0.00</td><td class="num">$9,150.00</td><td class="num">0%</td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">8f</td><td style="padding-left:24px;">↳ Flooring</td><td class="num">$11,590.00</td><td class="num">$11,942.90</td><td class="num" style="color:#c00;font-weight:bold;">($352.90)</td><td class="num"><span style="color:#c00000;font-weight:bold;">103%</span></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">8g</td><td style="padding-left:24px;">↳ Tile Work</td><td class="num">$7,854.00</td><td class="num">$113.44</td><td class="num">$7,740.56</td><td class="num">1%</td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub group-end" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">8h</td><td style="padding-left:24px;">↳ Stairs and Railings</td><td class="num">$0.00</td><td class="num">$2,923.58</td><td class="num" style="color:#c00;font-weight:bold;">($2,923.58)</td><td class="num"><span style="color:#c00000;font-weight:bold;">N/B</span></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="parent">
+        <td>9</td><td>Fixtures & Finishes</td><td class="num">$26,230.00</td><td class="num">$16,900.12</td><td class="num">$9,329.88</td><td class="num">64%</td><td class="num">$13,200.00</td><td class="num">$13,030.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:70.9px;height:100%;background:#2e7d32;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="font-size:11px;">64%</span></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">9a</td><td style="padding-left:24px;">↳ Kitchen Cabinets</td><td class="num">$16,500.00</td><td class="num">$8,156.83</td><td class="num">$8,343.17</td><td class="num">49%</td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">9b</td><td style="padding-left:24px;">↳ Countertops</td><td class="num">$0.00</td><td class="num">$6,824.04</td><td class="num" style="color:#c00;font-weight:bold;">($6,824.04)</td><td class="num"><span style="color:#c00000;font-weight:bold;">N/B</span></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">9c</td><td style="padding-left:24px;">↳ Appliances</td><td class="num">$5,200.00</td><td class="num">$0.00</td><td class="num">$5,200.00</td><td class="num">0%</td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">9d</td><td style="padding-left:24px;">↳ Plumbing Fixtures</td><td class="num">$1,830.00</td><td class="num">$0.00</td><td class="num">$1,830.00</td><td class="num">0%</td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">9e</td><td style="padding-left:24px;">↳ Light Fixtures</td><td class="num">$0.00</td><td class="num">$0.00</td><td class="num">$0.00</td><td class="num"></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">9f</td><td style="padding-left:24px;">↳ Bath Vanities and Mirrors</td><td class="num">$2,700.00</td><td class="num">$1,919.25</td><td class="num">$780.75</td><td class="num">71%</td><td></td><td></td><td></td>
+      </tr>
+      <tr class="sub group-end" style="background:#fafafa;color:#444;font-style:italic;font-size:11px;">
+        <td style="text-align:center;">9g</td><td style="padding-left:24px;">↳ Hardware</td><td class="num">$0.00</td><td class="num">$0.00</td><td class="num">$0.00</td><td class="num"></td><td></td><td></td><td></td>
+      </tr>
+      <tr class="parent">
+        <td>10</td><td>Landscaping</td><td class="num">$3,500.00</td><td class="num">$0.00</td><td class="num">$3,500.00</td><td class="num">0%</td><td class="num" style="color:#888;">—</td><td class="num">$3,500.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:0.0px;height:100%;background:#2e7d32;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="font-size:11px;">0%</span></td>
+      </tr>
+      <tr class="parent">
+        <td>11</td><td>Permits & Fees</td><td class="num">$0.00</td><td class="num">$6,316.00</td><td class="num" style="color:#c00;font-weight:bold;">($6,316.00)</td><td class="num"><span style="color:#c00000;font-weight:bold;">N/B</span></td><td class="num" style="color:#888;">—</td><td class="num">$0.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:220px;height:100%;background:repeating-linear-gradient(45deg,#c00 0 6px,#800 6px 12px);"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span class="nb">N/B</span></td>
+      </tr>
+      <tr class="parent">
+        <td>12</td><td>Construction Management</td><td class="num">$0.00</td><td class="num">$11,938.51</td><td class="num" style="color:#c00;font-weight:bold;">($11,938.51)</td><td class="num"><span style="color:#c00000;font-weight:bold;">N/B</span></td><td class="num" style="color:#888;">—</td><td class="num">$0.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:220px;height:100%;background:repeating-linear-gradient(45deg,#c00 0 6px,#800 6px 12px);"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span class="nb">N/B</span></td>
+      </tr>
+      <tr class="parent">
+        <td>13</td><td>Contingency</td><td class="num">$5,538.00</td><td class="num">$1,631.43</td><td class="num">$3,906.57</td><td class="num">29%</td><td class="num" style="color:#888;">—</td><td class="num">$5,538.00</td>
+        <td><div style="position:relative;width:220px;height:16px;background:#e0e0e0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;"><div style="position:absolute;left:0;top:0;width:32.4px;height:100%;background:#2e7d32;"></div><div style="position:absolute;left:110px;top:-2px;width:1px;height:20px;background:#333;"></div></div> <span style="font-size:11px;">29%</span></td>
+      </tr>
+      <tr style="font-weight:bold;background:#f0f0f0;"><td></td><td>Totals</td><td class="num">$282,482.00</td><td class="num">$240,291.40</td><td class="num">$42,190.60</td><td class="num"><span style="color:#f57c00;font-weight:bold;">85%</span></td><td class="num">$212,597.00</td><td class="num">$69,885.00</td><td></td></tr>
+    </table>
+    <div class="note">Mirrors the Budget &amp; Draws tab. Sub items (Roofing, Insulation, Kitchen Cabinets, etc.) display indented under their parent and roll up into the parent on the Totals row.</div>
+</div>
+<div class="card">
+    <h3>Recent Expenses</h3>
+    <table>
+      <tr><th>Date</th><th>Vendor</th><th>Category</th><th class="num">Amount</th></tr>
+      <tr><td>05/20/2026</td><td>A&amp;J Carpet</td><td>Kitchen Cabinets</td><td class="num">$8,156.83</td></tr>
+      <tr><td>05/20/2026</td><td>A&amp;J Carpet</td><td>Bath Vanities and Mirrors</td><td class="num">$1,919.25</td></tr>
+      <tr><td>05/20/2026</td><td>A&amp;J Carpet</td><td>Countertops</td><td class="num">$6,824.04</td></tr>
+      <tr><td>05/20/2026</td><td>A&amp;J Carpet</td><td>Flooring</td><td class="num">$9,628.36</td></tr>
+      <tr><td>05/20/2026</td><td>A&amp;J Carpet</td><td>Flooring</td><td class="num">$2,314.54</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Stairs and Railings</td><td class="num">$1,404.57</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Construction Management</td><td class="num">$54.00</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Framing</td><td class="num">$365.11</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Drywall</td><td class="num">$6,400.00</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Stairs and Railings</td><td class="num">$446.76</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Construction Management</td><td class="num">$1,311.50</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Siding</td><td class="num">$7,747.75</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Windows</td><td class="num">$12,260.35</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Gutters</td><td class="num">$1,258.75</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Drywall</td><td class="num">$4,243.24</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Drywall</td><td class="num">$338.86</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Tile Work</td><td class="num">$106.59</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Stairs and Railings</td><td class="num">$1,072.25</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Siding</td><td class="num">$1,257.18</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Framing</td><td class="num">$356.35</td></tr>
+      <tr><td>05/14/2026</td><td>Mastercraft Exteriors</td><td>Framing</td><td class="num">$7,680.00</td></tr>
+      <tr><td>05/13/2026</td><td>BD Capital SE LLC</td><td>Construction Loan Interest</td><td class="num">$250.00</td></tr>
+      <tr><td>04/30/2026</td><td>Bank (Fulton)</td><td>Contingency</td><td class="num">$30.00</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Framing</td><td class="num">$15,500.00</td></tr>
+      <tr><td>04/24/2026</td><td>Mastercraft Exteriors</td><td>Construction Management</td><td class="num">$4,272.65</td></tr>
+    </table>
+</div>
+</body>
+</html>
